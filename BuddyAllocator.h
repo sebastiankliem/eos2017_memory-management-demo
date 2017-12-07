@@ -21,7 +21,9 @@ class BuddyAllocator {
         BuddyAllocator(int sizeKb);
         unsigned long getSize();
         unsigned long getSizeKb();
+        void dumpLists();
         char *getMemoryPointer();
+        char *allocate(int sizeKb);
 };
 
 #endif

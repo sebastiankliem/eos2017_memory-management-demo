@@ -23,7 +23,6 @@ void BuddyAllocator::_init(int sizeKb) {
         _blocks[i] = LinkedList(pow(2, i + log2(BLOCK_MIN_SIZE_KB)));
     }
     _blocks[_getListNo(getSizeKb())].addBlockEnd(_memory);
-    std::cout << (void *)(_blocks[_getListNo(getSizeKb())].getBlockAt(0)->address) << std::endl;
 }
 
 int BuddyAllocator::_getListsSize() {
@@ -31,7 +30,7 @@ int BuddyAllocator::_getListsSize() {
 }
 
 int BuddyAllocator::_getListNo(int sizeKb) {
-    return log2(sizeKb) - log2(BLOCK_MIN_SIZE_KB);
+    return ceil(log2(sizeKb) - log2(BLOCK_MIN_SIZE_KB));
 }
 
 unsigned long BuddyAllocator::getSize() {
@@ -42,6 +41,46 @@ unsigned long BuddyAllocator::getSizeKb() {
     return _size / 1000;
 }
 
+void BuddyAllocator::dumpLists() {
+    for (int i = 0; i < _getListsSize(); i++) {
+        std::cout << _blocks[i].getBlockSize() << ": ";
+         _blocks[i].print();
+    }
+}
+
 char *BuddyAllocator::getMemoryPointer() {
     return _memory;
+}
+
+char *BuddyAllocator::allocate(int sizeKb) {
+    int listNo = _getListNo(sizeKb);
+    bool found = false;
+    block *allocateBlock = new block;
+    while (!found) {
+        if (_blocks[listNo].getLength() > 0) {
+            allocateBlock = _blocks[listNo].getBlockAt(0);
+            _blocks[listNo].removeBlockAt(0);
+            found = true;
+        }
+        else if (listNo < _getListsSize()){
+            listNo++;
+            if (_blocks[listNo].getLength() > 0) {
+                block *removeBlock = new block;
+                removeBlock = _blocks[listNo].getBlockAt(0);
+                _blocks[listNo - 1].addBlockAt(0, ((char *)removeBlock->address + (_blocks[listNo - 1].getBlockSize() * 1000)));
+                _blocks[listNo - 1].addBlockAt(0, removeBlock->address);
+                _blocks[listNo].removeBlockAt(0);
+                listNo = _getListNo(sizeKb);
+            }
+        }
+        else {
+            break;
+        }
+    }
+    if (found) {
+        return (char *) allocateBlock->address;
+    }
+    else {
+        return NULL;
+    }
 }

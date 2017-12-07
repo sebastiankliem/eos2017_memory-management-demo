@@ -83,10 +83,7 @@ void LinkedList::addBlockEnd(void *address) {
 }
 
 void LinkedList::addBlockAt(unsigned int position, void *address) {
-    if (_length == 0) {
-        addBlockEnd(address);
-    }
-    if (position == 0) {
+    if (_length == 0 || position == 0) {
         addBlockStart(address);
     }
     else {
