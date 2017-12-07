@@ -24,9 +24,13 @@ class LinkedList {
         int getBlockSize();
         int getLength();
         void print();
+        block *getBlockAt(unsigned int position);
         void addBlockStart(void *address);
         void addBlockEnd(void *address);
+        void addBlockAt(unsigned int position, void *address);
         void removeBlockStart();
+        void removeBlockEnd();
+        void removeBlockAt(unsigned int position);
 };
 
 #endif
