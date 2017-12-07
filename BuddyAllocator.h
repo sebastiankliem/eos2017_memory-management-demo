@@ -10,8 +10,11 @@ class BuddyAllocator {
     private:
         unsigned long _size;
         char *_memory;
+        LinkedList *_blocks;
 
         void _init(int sizeKb);
+        int _getListsSize();
+        int _getListNo(int sizeKb);
 
     public:
         BuddyAllocator();
