@@ -1,5 +1,5 @@
 CC = g++
-OBJ = buddy.o BuddyAllocator.o
+OBJ = buddy.o BuddyAllocator.o LinkedList.o
 
 buddy: $(OBJ)
 	$(CC) -o buddy $(OBJ)
