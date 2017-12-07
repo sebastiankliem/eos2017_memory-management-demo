@@ -1,3 +1,5 @@
+#include "LinkedList.h"
+
 #ifndef BuddyAllocator_h
 #define BuddyAllocator_h
 
@@ -9,7 +11,7 @@ class BuddyAllocator {
         unsigned long _size;
         char *_memory;
 
-        void init(int sizeKb);
+        void _init(int sizeKb);
 
     public:
         BuddyAllocator();

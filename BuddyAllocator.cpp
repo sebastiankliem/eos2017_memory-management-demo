@@ -3,13 +3,13 @@
 #include "stdlib.h"
 
 BuddyAllocator::BuddyAllocator() {
-    init(MEMORY_DEFAULT_SIZE_KB);
+    _init(MEMORY_DEFAULT_SIZE_KB);
 }
 BuddyAllocator::BuddyAllocator(int sizeKb) {
-    init(sizeKb);
+    _init(sizeKb);
 }
 
-void BuddyAllocator::init(int sizeKb) {
+void BuddyAllocator::_init(int sizeKb) {
     _size = sizeKb * 1000 * sizeof(char);
     _memory = (char *)malloc(_size);
     if (_memory == NULL) {
