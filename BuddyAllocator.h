@@ -7,7 +7,7 @@
 class BuddyAllocator {
     private:
         unsigned long _size;
-        void* _memory;
+        char *_memory;
 
         void init(int sizeKb);
 
@@ -16,6 +16,7 @@ class BuddyAllocator {
         BuddyAllocator(int sizeKb);
         unsigned long getSize();
         unsigned long getSizeKb();
+        char *getMemoryPointer();
 };
 
 #endif

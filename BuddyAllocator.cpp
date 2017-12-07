@@ -11,7 +11,7 @@ BuddyAllocator::BuddyAllocator(int sizeKb) {
 
 void BuddyAllocator::init(int sizeKb) {
     _size = sizeKb * 1000 * sizeof(char);
-    _memory = malloc(_size);
+    _memory = (char *)malloc(_size);
     if (_memory == NULL) {
         std::cerr << "ERROR: could not allocate memory\n";
         exit(EXIT_SUCCESS);
@@ -24,4 +24,8 @@ unsigned long BuddyAllocator::getSize() {
 
 unsigned long BuddyAllocator::getSizeKb() {
     return _size / 1000;
+}
+
+char *BuddyAllocator::getMemoryPointer() {
+    return _memory;
 }
