@@ -4,17 +4,21 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    int buddySize = MEMORY_DEFAULT_SIZE_KB;
-    BuddyAllocator ba = BuddyAllocator();
+    BuddyAllocator ba;
 
     // read memory size in kB
     if (argc == 2) {
-        buddySize = atoi(argv[1]) * 1000 * sizeof(char);
+        int buddySize = atoi(argv[1]);
+        ba = BuddyAllocator(buddySize);
+    }
+    else {
+        cout << "Usage: buddy <MemorySizeKiloBytes>\n";
+        return EXIT_SUCCESS;
     }
     
     cout << "BUDDY SYSTEM ALLOCATION\n";
     cout << "Memory size: " << ba.getSizeKb() << " kB\n";
     cout << "Min block size: " << BLOCK_MIN_SIZE_KB << " kB\n";
 
-    return 0;
+    return EXIT_SUCCESS;
 }

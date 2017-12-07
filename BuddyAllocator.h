@@ -7,6 +7,9 @@
 class BuddyAllocator {
     private:
         unsigned long _size;
+        void* _memory;
+
+        void init(int sizeKb);
 
     public:
         BuddyAllocator();
