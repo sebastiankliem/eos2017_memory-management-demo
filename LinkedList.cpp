@@ -1,4 +1,6 @@
 #include "LinkedList.h"
+
+#include <iostream>
 #include "stdlib.h"
 
 LinkedList::LinkedList() {
@@ -12,6 +14,7 @@ void LinkedList::_init(int blockSize) {
     _blockSize = blockSize;
     _head = NULL;
     _tail = NULL;
+    _length = 0;
 }
 
 bool LinkedList::isEmpty() {
@@ -22,10 +25,41 @@ int LinkedList::getBlockSize() {
     return _blockSize;
 }
 
-void LinkedList::addBlock(void *address) {
+int LinkedList::getLength() {
+    return _length;
+}
+
+void LinkedList::print() {
+    block *iterator = new block;
+    iterator = _head;
+    
+    while (iterator != NULL) {
+        std::cout << iterator->address << " ";
+        iterator = iterator->next;
+    }
+    std::cout << std::endl;
+}
+
+void LinkedList::addBlockStart(void *address) {
     block *newBlock = new block;
     newBlock->address = address;
     newBlock->next = NULL;
+    _length++;
+    if (_head == NULL) {
+        _head = newBlock;
+        _tail = newBlock;
+    }
+    else {
+        newBlock->next = _head->next;
+        _head = newBlock;
+    }
+}
+
+void LinkedList::addBlockEnd(void *address) {
+    block *newBlock = new block;
+    newBlock->address = address;
+    newBlock->next = NULL;
+    _length++;
     if (_head == NULL) {
         _head = newBlock;
         _tail = newBlock;
