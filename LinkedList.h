@@ -3,15 +3,15 @@
 
 #define DEFAULT_BLOCK_SIZE 64
 
-struct block {
+struct list_block {
     void *address;
-    block *next;
+    list_block *next;
 };
 
 class LinkedList {
     private:
-        block *_head;
-        block *_tail;
+        list_block *_head;
+        list_block *_tail;
         int _blockSizeKb;
         unsigned int _length;
 
@@ -24,7 +24,7 @@ class LinkedList {
         int getBlockSizeKb();
         int getLength();
         void print();
-        block *getBlockAt(unsigned int position);
+        list_block *getBlockAt(unsigned int position);
         void addBlockStart(void *address);
         void addBlockEnd(void *address);
         void addBlockAt(unsigned int position, void *address);

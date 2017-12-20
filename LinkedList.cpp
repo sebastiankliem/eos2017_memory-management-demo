@@ -30,7 +30,7 @@ int LinkedList::getLength() {
 }
 
 void LinkedList::print() {
-    block *iterator = new block;
+    list_block *iterator = new list_block;
     iterator = _head;
     
     while (iterator != NULL) {
@@ -40,8 +40,8 @@ void LinkedList::print() {
     std::cout << std::endl;
 }
 
-block *LinkedList::getBlockAt(unsigned int position) {
-    block *current = new block;
+list_block *LinkedList::getBlockAt(unsigned int position) {
+    list_block *current = new list_block;
     current = _head;
     if (position > 0) {
         for (int i = 0; i < position; i++) {
@@ -52,7 +52,7 @@ block *LinkedList::getBlockAt(unsigned int position) {
 }
 
 void LinkedList::addBlockStart(void *address) {
-    block *newBlock = new block;
+    list_block *newBlock = new list_block;
     newBlock->address = address;
     newBlock->next = NULL;
     if (_length == 0) {
@@ -67,7 +67,7 @@ void LinkedList::addBlockStart(void *address) {
 }
 
 void LinkedList::addBlockEnd(void *address) {
-    block *newBlock = new block;
+    list_block *newBlock = new list_block;
     newBlock->address = address;
     newBlock->next = NULL;
     if (_length == 0) {
@@ -75,7 +75,7 @@ void LinkedList::addBlockEnd(void *address) {
         _tail = newBlock;
     }
     else {
-        block *secondLastBlock = getBlockAt((_length == 1) ? 0 : _length - 2);
+        list_block *secondLastBlock = getBlockAt((_length == 1) ? 0 : _length - 2);
         secondLastBlock->next = newBlock;
         _tail = newBlock;
     }
@@ -87,9 +87,9 @@ void LinkedList::addBlockAt(unsigned int position, void *address) {
         addBlockStart(address);
     }
     else {
-        block *newBlock = new block;
+        list_block *newBlock = new list_block;
         newBlock->address = address;
-        block *beforeBlock = new block;
+        list_block *beforeBlock = new list_block;
         beforeBlock = getBlockAt(position - 1);
         newBlock->next = beforeBlock->next;
         beforeBlock->next = newBlock;
@@ -107,7 +107,7 @@ void LinkedList::removeBlockEnd() {
 
 void LinkedList::removeBlockAt(unsigned int position) {
     if (_length != 0 && position < _length) {
-        block *removeBlock = new block;
+        list_block *removeBlock = new list_block;
         removeBlock = getBlockAt(position);
         if (_length == 1) {
             _head = NULL;
@@ -121,7 +121,7 @@ void LinkedList::removeBlockAt(unsigned int position) {
                 _head = removeBlock->next;
             }
             else {
-                block *blockBefore = new block;
+                list_block *blockBefore = new list_block;
                 blockBefore = getBlockAt(position - 1);
                 blockBefore->next = removeBlock->next;
                 if (position == _length - 1) {

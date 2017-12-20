@@ -111,7 +111,7 @@ char *BuddyAllocator::getMemoryPointer() {
 buddy_block *BuddyAllocator::allocate(int sizeKb) {
     int listNo = _getListNo(sizeKb);
     bool found = false;
-    block *allocateBlock = new block;
+    list_block *allocateBlock = new list_block;
     while (!found) {
         if (_blocks[listNo].getLength() > 0) {
             allocateBlock = _blocks[listNo].getBlockAt(0);
@@ -121,7 +121,7 @@ buddy_block *BuddyAllocator::allocate(int sizeKb) {
         else if (listNo < _getListsSize()){
             listNo++;
             if (_blocks[listNo].getLength() > 0) {
-                block *removeBlock = new block;
+                list_block *removeBlock = new list_block;
                 removeBlock = _blocks[listNo].getBlockAt(0);
                 _blocks[listNo - 1].addBlockAt(0, ((char *)removeBlock->address + (_blocks[listNo - 1].getBlockSizeKb() * 1000)));
                 _blocks[listNo - 1].addBlockAt(0, removeBlock->address);
