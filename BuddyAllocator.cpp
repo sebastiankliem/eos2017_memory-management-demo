@@ -41,6 +41,26 @@ unsigned long BuddyAllocator::getSizeKb() {
     return _size / 1000;
 }
 
+void BuddyAllocator::_sortList(int listNo) {
+    LinkedList unsorted = _blocks[listNo];
+    LinkedList sorted = LinkedList(unsorted.getBlockSize());
+    sorted.addBlockAt(0, unsorted.getBlockAt(0)->address);
+    for (int i = 1; i < unsorted.getLength(); i++) {
+        void *insertAddress = unsorted.getBlockAt(i)->address;
+        for (int j = 0; j < sorted.getLength(); j++) {
+            if (insertAddress <= (sorted.getBlockAt(j)->address)) {
+                sorted.addBlockAt(0, insertAddress);
+                break;
+            }
+            else if ( j == sorted.getLength() - 1 && insertAddress > (sorted.getBlockAt(j)->address)) {
+                sorted.addBlockEnd(insertAddress);
+            }
+        }
+    }
+
+    _blocks[listNo] = sorted;
+}
+
 void BuddyAllocator::dumpLists() {
     for (int i = 0; i < _getListsSize(); i++) {
         std::cout << _blocks[i].getBlockSize() << ": ";

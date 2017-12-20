@@ -20,6 +20,7 @@ class BuddyAllocator {
         void _init(int sizeKb);
         int _getListsSize();
         int _getListNo(int sizeKb);
+        void _sortList(int listNo);
 
     public:
         BuddyAllocator();
