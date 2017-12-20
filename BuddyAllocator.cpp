@@ -44,12 +44,12 @@ unsigned long BuddyAllocator::getSizeKb() {
 void BuddyAllocator::_sortList(int listNo) {
     LinkedList unsorted = _blocks[listNo];
     LinkedList sorted = LinkedList(unsorted.getBlockSizeKb());
-    sorted.addBlockAt(0, unsorted.getBlockAt(0)->address);
+    sorted.addBlockStart(unsorted.getBlockAt(0)->address);
     for (int i = 1; i < unsorted.getLength(); i++) {
         void *insertAddress = unsorted.getBlockAt(i)->address;
         for (int j = 0; j < sorted.getLength(); j++) {
             if (insertAddress <= (sorted.getBlockAt(j)->address)) {
-                sorted.addBlockAt(0, insertAddress);
+                sorted.addBlockStart(insertAddress);
                 break;
             }
             else if ( j == sorted.getLength() - 1 && insertAddress > (sorted.getBlockAt(j)->address)) {
@@ -84,7 +84,7 @@ void BuddyAllocator::_merge(int listNo) {
         void* startAddress = _blocks[listNo].getBlockAt(buddies[0])->address;
         _blocks[listNo].removeBlockAt(buddies[1]);
         _blocks[listNo].removeBlockAt(buddies[0]);
-        _blocks[listNo + 1].addBlockAt(0, startAddress);
+        _blocks[listNo + 1].addBlockStart(startAddress);
         _sortList(listNo + 1);
 
         buddies = _findBuddies(listNo);
@@ -123,8 +123,8 @@ buddy_block *BuddyAllocator::allocate(int sizeKb) {
             if (_blocks[listNo].getLength() > 0) {
                 list_block *removeBlock = new list_block;
                 removeBlock = _blocks[listNo].getBlockAt(0);
-                _blocks[listNo - 1].addBlockAt(0, ((char *)removeBlock->address + (_blocks[listNo - 1].getBlockSizeKb() * 1000)));
-                _blocks[listNo - 1].addBlockAt(0, removeBlock->address);
+                _blocks[listNo - 1].addBlockStart(((char *)removeBlock->address + (_blocks[listNo - 1].getBlockSizeKb() * 1000)));
+                _blocks[listNo - 1].addBlockStart(removeBlock->address);
                 _blocks[listNo].removeBlockAt(0);
                 listNo = _getListNo(sizeKb);
             }
@@ -146,7 +146,7 @@ buddy_block *BuddyAllocator::allocate(int sizeKb) {
 
 void BuddyAllocator::deallocate(buddy_block *freeBlock) {
     int listNo = _getListNo(freeBlock->sizeKb);
-    // _blocks[listNo].addBlockAt(0, freeBlock->startAddress);
+    // _blocks[listNo].addBlockStart(freeBlock->startAddress);
     _blocks[listNo].addBlockEnd(freeBlock->startAddress);
     _sortList(listNo);
     _mergeAll();
