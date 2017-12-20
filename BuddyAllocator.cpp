@@ -146,8 +146,7 @@ buddy_block *BuddyAllocator::allocate(int sizeKb) {
 
 void BuddyAllocator::deallocate(buddy_block *freeBlock) {
     int listNo = _getListNo(freeBlock->sizeKb);
-    // _blocks[listNo].addBlockStart(freeBlock->startAddress);
-    _blocks[listNo].addBlockEnd(freeBlock->startAddress);
+    _blocks[listNo].addBlockStart(freeBlock->startAddress);
     _sortList(listNo);
     _mergeAll();
 }
