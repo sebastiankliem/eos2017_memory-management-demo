@@ -8,7 +8,7 @@
 
 struct buddy_block {
     char* startAddress;
-    unsigned int size;
+    unsigned int sizeKb;
 };
 
 class BuddyAllocator {

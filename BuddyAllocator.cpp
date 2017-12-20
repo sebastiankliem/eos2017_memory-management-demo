@@ -80,7 +80,7 @@ buddy_block *BuddyAllocator::allocate(int sizeKb) {
     if (found) {
         buddy_block *foundBlock = new buddy_block;
         foundBlock->startAddress = (char *) allocateBlock->address;
-        foundBlock->size = _blocks[listNo].getBlockSize();
+        foundBlock->sizeKb = _blocks[listNo].getBlockSize();
         return foundBlock;
     }
     else {
