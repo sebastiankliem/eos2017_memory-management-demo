@@ -52,7 +52,7 @@ char *BuddyAllocator::getMemoryPointer() {
     return _memory;
 }
 
-char *BuddyAllocator::allocate(int sizeKb) {
+buddy_block *BuddyAllocator::allocate(int sizeKb) {
     int listNo = _getListNo(sizeKb);
     bool found = false;
     block *allocateBlock = new block;
@@ -78,7 +78,10 @@ char *BuddyAllocator::allocate(int sizeKb) {
         }
     }
     if (found) {
-        return (char *) allocateBlock->address;
+        buddy_block *foundBlock = new buddy_block;
+        foundBlock->startAddress = (char *) allocateBlock->address;
+        foundBlock->size = _blocks[listNo].getBlockSize();
+        return foundBlock;
     }
     else {
         return NULL;

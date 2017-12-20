@@ -21,32 +21,32 @@ int main(int argc, char* argv[]) {
     cout << endl;
     
     cout << "request: " << 120 << endl;
-    char *myblock = ba.allocate(120);
-    cout << "start addres: " << (void *)myblock << endl;
+    buddy_block *myblock = ba.allocate(120);
+    cout << "start addres: " << myblock->startAddress << endl;
     ba.dumpLists();
     cout << endl;
     
     cout << "request: " << 128 << endl;
-    char *myblock2 = ba.allocate(128);
-    cout << "start addres: " << (void *)myblock2 << endl;
+    buddy_block *myblock2 = ba.allocate(128);
+    cout << "start addres: " << myblock2->startAddress << endl;
     ba.dumpLists();
     cout << endl;
     
     cout << "request: " << 40 << endl;
-    char *myblock3 = ba.allocate(40);
-    cout << "start addres: " << (void *)myblock3 << endl;
+    buddy_block *myblock3 = ba.allocate(40);
+    cout << "start addres: " << myblock3->startAddress << endl;
     ba.dumpLists();
     cout << endl;
     
     cout << "request: " << 356 << endl;
-    char *myblock4 = ba.allocate(356);
-    cout << "start addres: " << (void *)myblock4<< endl;
+    buddy_block *myblock4 = ba.allocate(356);
+    cout << "start addres: " << myblock4->startAddress << endl;
     ba.dumpLists();
     cout << endl;
     
     cout << "request: " << 359 << endl;
-    char *myblock5 = ba.allocate(359);
-    cout << "start addres: " << (void *)myblock5<< endl;
+    buddy_block *myblock5 = ba.allocate(359);
+    cout << "start addres: " << myblock5->startAddress << endl;
     ba.dumpLists();
     cout << endl;
 

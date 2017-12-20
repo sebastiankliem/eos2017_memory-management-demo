@@ -6,6 +6,11 @@
 #define MEMORY_DEFAULT_SIZE_KB 1024
 #define BLOCK_MIN_SIZE_KB 64
 
+struct buddy_block {
+    char* startAddress;
+    unsigned int size;
+};
+
 class BuddyAllocator {
     private:
         unsigned long _size;
@@ -23,7 +28,7 @@ class BuddyAllocator {
         unsigned long getSizeKb();
         void dumpLists();
         char *getMemoryPointer();
-        char *allocate(int sizeKb);
+        buddy_block *allocate(int sizeKb);
 };
 
 #endif
