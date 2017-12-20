@@ -21,6 +21,9 @@ class BuddyAllocator {
         int _getListsSize();
         int _getListNo(int sizeKb);
         void _sortList(int listNo);
+        int *_findBuddies(int listNo);
+        void _merge(int listNo);
+        void _mergeAll();
 
     public:
         BuddyAllocator();
@@ -30,6 +33,7 @@ class BuddyAllocator {
         void dumpLists();
         char *getMemoryPointer();
         buddy_block *allocate(int sizeKb);
+        void deallocate(buddy_block *);
 };
 
 #endif

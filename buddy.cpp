@@ -22,31 +22,57 @@ int main(int argc, char* argv[]) {
     
     cout << "request: " << 120 << endl;
     buddy_block *myblock = ba.allocate(120);
-    cout << "start addres: " << myblock->startAddress << endl;
+    cout << "[1] start addres: " << (void *)myblock->startAddress << endl;
     ba.dumpLists();
     cout << endl;
     
     cout << "request: " << 128 << endl;
     buddy_block *myblock2 = ba.allocate(128);
-    cout << "start addres: " << myblock2->startAddress << endl;
+    cout << "[2] start addres: " << (void *)myblock2->startAddress << endl;
     ba.dumpLists();
     cout << endl;
     
     cout << "request: " << 40 << endl;
     buddy_block *myblock3 = ba.allocate(40);
-    cout << "start addres: " << myblock3->startAddress << endl;
+    cout << "[3] start addres: " << (void *)myblock3->startAddress << endl;
     ba.dumpLists();
     cout << endl;
     
     cout << "request: " << 356 << endl;
     buddy_block *myblock4 = ba.allocate(356);
-    cout << "start addres: " << myblock4->startAddress << endl;
+    cout << "[4] start addres: " << (void *)myblock4->startAddress << endl;
     ba.dumpLists();
     cout << endl;
     
     cout << "request: " << 359 << endl;
     buddy_block *myblock5 = ba.allocate(359);
-    cout << "start addres: " << myblock5->startAddress << endl;
+    cout << "[5] start addres: " << (void *)myblock5->startAddress << endl;
+    ba.dumpLists();
+    cout << endl;
+    
+    cout << "free [5]: " << myblock5->sizeKb << "KB" << endl;
+    ba.deallocate(myblock5);
+    ba.dumpLists();
+    cout << endl;
+
+    cout << "free [4]: " << myblock4->sizeKb << "KB" << endl;
+    ba.deallocate(myblock4);
+    ba.dumpLists();
+    cout << endl;
+
+    cout << "free [3]: " << myblock3->sizeKb << "KB" << endl;
+    ba.deallocate(myblock3);
+    ba.dumpLists();
+    cout << endl;
+    cout << endl;
+
+    cout << "free [2]: " << myblock2->sizeKb << "KB" << endl;
+    ba.deallocate(myblock2);
+    ba.dumpLists();
+    cout << endl;
+
+    cout << "free [1]: " << myblock->sizeKb << "KB" << endl;
+    ba.deallocate(myblock);
     ba.dumpLists();
     cout << endl;
 

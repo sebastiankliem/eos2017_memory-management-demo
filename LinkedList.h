@@ -12,16 +12,16 @@ class LinkedList {
     private:
         block *_head;
         block *_tail;
-        int _blockSize;
+        int _blockSizeKb;
         unsigned int _length;
 
-        void _init(int blockSize);
+        void _init(int blockSizeKb);
 
     public:
         LinkedList();
         LinkedList(int blockSize);
         bool isEmpty();
-        int getBlockSize();
+        int getBlockSizeKb();
         int getLength();
         void print();
         block *getBlockAt(unsigned int position);

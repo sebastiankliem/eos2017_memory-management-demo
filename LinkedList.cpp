@@ -6,12 +6,12 @@
 LinkedList::LinkedList() {
     LinkedList::_init(DEFAULT_BLOCK_SIZE);
 }
-LinkedList::LinkedList(int blockSize) {
-    LinkedList::_init(blockSize);
+LinkedList::LinkedList(int blockSizeKb) {
+    LinkedList::_init(blockSizeKb);
 }
 
-void LinkedList::_init(int blockSize) {
-    _blockSize = blockSize;
+void LinkedList::_init(int blockSizeKb) {
+    _blockSizeKb = blockSizeKb;
     _head = NULL;
     _tail = NULL;
     _length = 0;
@@ -21,8 +21,8 @@ bool LinkedList::isEmpty() {
     return _head == NULL && _tail == NULL;
 }
 
-int LinkedList::getBlockSize() {
-    return _blockSize;
+int LinkedList::getBlockSizeKb() {
+    return _blockSizeKb;
 }
 
 int LinkedList::getLength() {
